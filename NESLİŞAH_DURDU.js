@@ -31,11 +31,26 @@
     products.forEach((product) => {
       const productCard = $("<div>").addClass("product-card");
 
-      const img = $("<img>").attr("src", product.img).attr("alt", product.name);
-      const name = $("<p>").text(product.name);
-      const price = $("<p>").text(`${product.price} TRY`);
+      const img = $("<img>")
+        .attr("src", product.img)
+        .attr("alt", product.name)
+        .css("cursor", "pointer")
+        .on("click", () => {
+          window.open(product.url, "_blank");
+        });
+
+      const name = $("<p>")
+        .addClass("name")
+        .text(product.name)
+        .css("cursor", "pointer")
+        .on("click", () => {
+          window.open(product.url, "_blank");
+        });
+
+      const price = $("<p>").addClass("price").text(`${product.price} TRY`);
 
       productCard.append(img, name, price);
+
       sliderWrapper.append(productCard);
     });
 
@@ -58,61 +73,75 @@
 
   const buildCSS = () => {
     const css = `
-        .slider-container {
-          width: 100%;
-          max-width: 1200px;
-          margin: 0 auto;
-          position: relative;
-          padding: 16px;
-        }
-        .slider-container h2 {
-          font-size: 24px;
-          margin-bottom: 16px;
-          text-align: left;
-          font-family: 'Open Sans', sans-serif;
-        }
-        .slider-wrapper {
-          display: flex;
-          overflow: hidden;
-          gap: 16px;
-        }
-        .product-card {
-          flex: 0 0 auto;
-          width: 150px;
-          background: #f9f9f9;
-          text-align: center;
-          padding: 16px;
-          border-radius: 8px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .product-card img {
-          width: 100%;
-          height: auto;
-          border-radius: 4px;
-        }
-        .product-card p {
-          margin: 8px 0;
-          font-size: 14px;
-        }
-        .slider-button {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          background: #000;
-          color: #fff;
-          border: none;
-          padding: 8px 16px;
-          font-size: 16px;
-          cursor: pointer;
-          border-radius: 4px;
-        }
-        .slider-button.left {
-          left: 0;
-        }
-        .slider-button.right {
-          right: 0;
-        }
-      `;
+    .slider-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      padding: 16px;
+      overflow: visible; 
+    }
+    .slider-container h2 {
+      font-size: 32px;
+      line-height: 43px;
+      margin-bottom: 16px;
+      text-align: left;
+      font-family: 'Open Sans', sans-serif;
+    }
+    .slider-wrapper {
+      display: flex;
+      overflow: hidden;
+      gap: 16px;
+    }
+    .product-card {
+      flex: 0 0 calc((100% / 6.5) - (16px * 8.5 / 6.5)); 
+      text-align: center;
+      padding: 16px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .product-card img {
+      width: 100%;
+      height: auto;
+    }
+    .product-card .name {
+      margin: 8px 0;
+      font-size: 14px;
+      cursor: pointer; 
+    }
+    .product-card .price {
+      color: #193db0;
+      font-size: 18px; 
+      display: inline-block; 
+      line-height: 22px; 
+      font-weight: bold; 
+      margin: 8px 0; 
+    }
+    .slider-button {
+      position: absolute;
+      top: 60%; 
+      transform: translateY(-50%);
+      background: none;
+      color: #2F4F4F;
+      border: none;
+      padding: 8px 16px;
+      font-size: 35px; 
+      cursor: pointer;
+      border-radius: 70%; 
+      width: 50px; 
+      height: 50px; 
+      z-index: 1; 
+    }
+    .slider-button.left {
+      left: -30px; 
+    }
+    .slider-button.right {
+      right: -30px; 
+    }
+  `;
 
     $("<style>").addClass("carousel-style").html(css).appendTo("head");
   };
@@ -122,24 +151,17 @@
     const leftButton = $(".slider-button.left");
     const rightButton = $(".slider-button.right");
 
-    let scrollAmount = 0;
+    const productCardWidth = $(".product-card").outerWidth(true);
+    const gap = 16;
+
+    const scrollAmount = productCardWidth + gap;
 
     leftButton.on("click", () => {
-      scrollAmount -= 200;
-      if (scrollAmount < 0) scrollAmount = 0;
-      sliderWrapper.stop().animate({ scrollLeft: scrollAmount }, 300);
+      sliderWrapper.stop().animate({ scrollLeft: `-=${scrollAmount}` }, 300);
     });
 
     rightButton.on("click", () => {
-      scrollAmount += 200;
-      if (
-        scrollAmount >
-        sliderWrapper[0].scrollWidth - sliderWrapper[0].clientWidth
-      ) {
-        scrollAmount =
-          sliderWrapper[0].scrollWidth - sliderWrapper[0].clientWidth;
-      }
-      sliderWrapper.stop().animate({ scrollLeft: scrollAmount }, 300);
+      sliderWrapper.stop().animate({ scrollLeft: `+=${scrollAmount}` }, 300);
     });
   };
 
