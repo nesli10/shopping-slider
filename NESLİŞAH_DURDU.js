@@ -122,7 +122,7 @@
     }
     .slider-button {
       position: absolute;
-      top: 60%; 
+      top: 50%; 
       transform: translateY(-50%);
       background: none;
       color: #2F4F4F;
