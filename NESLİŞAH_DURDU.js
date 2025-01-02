@@ -87,8 +87,17 @@
     sliderContainer.append(sliderWrapper);
 
     // Left and right buttons
-    const leftButton = $("<button>").addClass("slider-button left").text("<");
-    const rightButton = $("<button>").addClass("slider-button right").text(">");
+    const leftButton = $("<button>")
+      .addClass("slider-button left")
+      .html(
+        `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>`
+      );
+
+    const rightButton = $("<button>")
+      .addClass("slider-button right")
+      .html(
+        `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>`
+      );
 
     sliderContainer.append(leftButton, rightButton);
 
@@ -128,7 +137,7 @@
       padding-left: 16px;
     }
     .product-card {
-      flex: 0 0 calc((100% / 6.5) - (16px * 8.5 / 6.5)); 
+      flex: 0 0 calc((100% / 6.5) - (16px * 7.5 / 6.5)); 
       text-align: center;
       padding: 16px;
       border-radius: 8px;
@@ -200,15 +209,15 @@
       font-size: 35px; 
       cursor: pointer;
       border-radius: 70%; 
-      width: 50px; 
+      width: 70px; 
       height: 50px; 
       z-index: 1; 
     }
     .slider-button.left {
-      left: -30px; 
+      left: -40px; 
     }
     .slider-button.right {
-      right: -30px; 
+      right: -40px; 
     }
   `;
 
