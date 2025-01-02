@@ -79,8 +79,6 @@
 
       const price = $("<p>").addClass("price").text(`${product.price} TRY`);
       productCard.append(likeButton, img, name, price);
-      productCard.append(img, name, price);
-
       sliderWrapper.append(productCard);
     });
 
@@ -218,6 +216,31 @@
     }
     .slider-button.right {
       right: -40px; 
+    }
+
+    /* Mobil  (max-width: 767px) */
+    @media (max-width: 767px) {
+      .product-card {
+        flex: 0 0 calc(50% - 8px); 
+      }
+      .slider-button {
+        width: 50px;
+        height: 50px;
+        font-size: 28px;
+      }
+      .slider-button.left {
+        left: -20px;
+      }
+      .slider-button.right {
+        right: -20px;
+      }
+    }
+
+    /* Tablet (768px - 1023px) */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .product-card {
+        flex: 0 0 calc(33.33% - 10.66px); 
+      }
     }
   `;
 
