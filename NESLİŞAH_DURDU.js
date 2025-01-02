@@ -170,7 +170,7 @@
       height: auto;
     }
     .product-card .name {
-      margin: 8px 0;
+      margin: 8px 0 4px 0; 
       font-size: 14px;
       cursor: pointer; 
       color: #29323b !important;
@@ -181,11 +181,13 @@
     .product-card .price {
       color: #193db0;
       font-size: 15px; 
-      display: inline-block; 
+      display: inline-block;
       line-height: 22px; 
       font-weight: bold; 
       margin: 0px ; 
       font-family: 'Open Sans', sans-serif !important;
+      text-align: left; 
+      width: 100%; 
     }
     .slider-button {
       position: absolute;
