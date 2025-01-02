@@ -264,6 +264,27 @@
     rightButton.on("click", () => {
       sliderWrapper.stop().animate({ scrollLeft: `+=${scrollAmount}` }, 300);
     });
+
+    // Touch events
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    sliderWrapper.on("touchstart", (e) => {
+      touchStartX = e.originalEvent.touches[0].clientX;
+    });
+
+    sliderWrapper.on("touchmove", (e) => {
+      touchEndX = e.originalEvent.touches[0].clientX;
+    });
+
+    sliderWrapper.on("touchend", () => {
+      const swipeDistance = touchEndX - touchStartX;
+      if (swipeDistance > 50) {
+        sliderWrapper.stop().animate({ scrollLeft: `-=${scrollAmount}` }, 300);
+      } else if (swipeDistance < -50) {
+        sliderWrapper.stop().animate({ scrollLeft: `+=${scrollAmount}` }, 300);
+      }
+    });
   };
 
   const saveLikedProduct = (productId, isLiked) => {
