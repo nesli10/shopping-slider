@@ -1,6 +1,14 @@
 (() => {
   const init = () => {
-    fetchProducts();
+    const products = getProductsFromLocalStorage();
+    if (products && products.length > 0) {
+      buildHTML(products);
+      buildCSS();
+      addSliderFunctionality();
+      checkLikedProducts(products);
+    } else {
+      fetchProducts();
+    }
   };
 
   const fetchProducts = () => {
@@ -9,12 +17,22 @@
     )
       .then((response) => response.json())
       .then((data) => {
+        saveProductsToLocalStorage(data);
         buildHTML(data);
         buildCSS();
         addSliderFunctionality();
         checkLikedProducts(data);
       })
       .catch((err) => console.error("Fetch error:", err));
+  };
+
+  const saveProductsToLocalStorage = (products) => {
+    localStorage.setItem("products", JSON.stringify(products));
+  };
+
+  const getProductsFromLocalStorage = () => {
+    const products = localStorage.getItem("products");
+    return products ? JSON.parse(products) : null;
   };
 
   const buildHTML = (products) => {
