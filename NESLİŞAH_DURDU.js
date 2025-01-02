@@ -12,6 +12,7 @@
         buildHTML(data);
         buildCSS();
         addSliderFunctionality();
+        checkLikedProducts(data);
       })
       .catch((err) => console.error("Fetch error:", err));
   };
@@ -31,6 +32,17 @@
     products.forEach((product) => {
       const productCard = $("<div>").addClass("product-card");
 
+      // Like button
+      const likeButton = $("<div>")
+        .addClass("like-button")
+        .html(
+          `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`
+        )
+        .on("click", function () {
+          $(this).toggleClass("liked");
+          saveLikedProduct(product.id, $(this).hasClass("liked"));
+        });
+
       const img = $("<img>")
         .attr("src", product.img)
         .attr("alt", product.name)
@@ -48,7 +60,7 @@
         });
 
       const price = $("<p>").addClass("price").text(`${product.price} TRY`);
-
+      productCard.append(likeButton, img, name, price);
       productCard.append(img, name, price);
 
       sliderWrapper.append(productCard);
@@ -87,6 +99,8 @@
       margin-bottom: 16px;
       text-align: left;
       font-family: 'Open Sans', sans-serif;
+     color: #29323b;
+     font-weight: lighter;
     }
     .slider-wrapper {
       display: flex;
@@ -102,6 +116,34 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
+      position: relative; 
+    }
+     .like-button {
+      position: absolute;
+      top: 20px; 
+      right: 28px; 
+      font-size: 28px;
+      cursor: pointer;
+      color: #2F4F4F; 
+      z-index: 2; 
+      background-color: rgba(255, 255, 255, 0.8); 
+      border-radius: 6px; 
+      width: 32px; 
+      height: 32px; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .like-button svg {
+      width: 20px; 
+      height: 20px; 
+      stroke: #2F4F4F; 
+      fill: none; 
+    }
+    .like-button.liked svg {
+      fill: #193db0; 
+      stroke: #2F4F4F; 
     }
     .product-card img {
       width: 100%;
@@ -162,6 +204,27 @@
 
     rightButton.on("click", () => {
       sliderWrapper.stop().animate({ scrollLeft: `+=${scrollAmount}` }, 300);
+    });
+  };
+
+  const saveLikedProduct = (productId, isLiked) => {
+    const likedProducts =
+      JSON.parse(localStorage.getItem("likedProducts")) || {};
+    likedProducts[productId] = isLiked;
+    localStorage.setItem("likedProducts", JSON.stringify(likedProducts));
+  };
+
+  const checkLikedProducts = (products) => {
+    const likedProducts =
+      JSON.parse(localStorage.getItem("likedProducts")) || {};
+    products.forEach((product) => {
+      if (likedProducts[product.id]) {
+        $(`.product-card:has(.like-button)`).each(function () {
+          if ($(this).find(".name").text() === product.name) {
+            $(this).find(".like-button").addClass("liked");
+          }
+        });
+      }
     });
   };
 
