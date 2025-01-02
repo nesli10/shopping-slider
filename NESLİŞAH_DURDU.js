@@ -117,13 +117,15 @@
       margin-bottom: 16px;
       text-align: left;
       font-family: 'Open Sans', sans-serif;
-     color: #29323b;
-     font-weight: lighter;
+      color: #29323b;
+      font-weight: lighter;
+      padding-left: 30px;
     }
     .slider-wrapper {
       display: flex;
       overflow: hidden;
       gap: 16px;
+      padding-left: 16px;
     }
     .product-card {
       flex: 0 0 calc((100% / 6.5) - (16px * 8.5 / 6.5)); 
@@ -139,7 +141,7 @@
      .like-button {
       position: absolute;
       top: 20px; 
-      right: 28px; 
+      right: 27px; 
       font-size: 28px;
       cursor: pointer;
       color: #2F4F4F; 
@@ -171,14 +173,19 @@
       margin: 8px 0;
       font-size: 14px;
       cursor: pointer; 
+      color: #29323b !important;
+      font-family: 'Open Sans', sans-serif !important;
+      text-align: left; 
+      width: 100%; 
     }
     .product-card .price {
       color: #193db0;
-      font-size: 18px; 
+      font-size: 15px; 
       display: inline-block; 
       line-height: 22px; 
       font-weight: bold; 
-      margin: 8px 0; 
+      margin: 0px ; 
+      font-family: 'Open Sans', sans-serif !important;
     }
     .slider-button {
       position: absolute;
