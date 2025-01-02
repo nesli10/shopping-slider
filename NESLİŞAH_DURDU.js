@@ -141,7 +141,7 @@
      .like-button {
       position: absolute;
       top: 20px; 
-      right: 27px; 
+      right: 20px; 
       font-size: 28px;
       cursor: pointer;
       color: #2F4F4F; 
