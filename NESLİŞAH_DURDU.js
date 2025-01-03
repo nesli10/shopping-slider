@@ -292,6 +292,10 @@
 
     const scrollAmount = productCardWidth + gap;
 
+    leftButton.off("click");
+    rightButton.off("click");
+    sliderWrapper.off("mousedown mousemove mouseup mouseleave");
+
     leftButton.on("click", () => {
       sliderWrapper.stop().animate({ scrollLeft: `-=${scrollAmount}` }, 300);
     });
@@ -329,9 +333,49 @@
           .animate({ scrollLeft: nearestIndex * scrollAmount }, 300);
       });
 
-      sliderWrapper.on("touchmove", (e) => {
-        if (isScrolling) {
-          e.preventDefault();
+      let mouseStartX = 0;
+      let isDragging = false;
+      const dragThreshold = 50;
+
+      sliderWrapper.on("mousedown", (e) => {
+        isDragging = true;
+        mouseStartX = e.clientX;
+        sliderWrapper.css("cursor", "grabbing");
+      });
+
+      sliderWrapper.on("mousemove", (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+
+        const mouseX = e.clientX;
+        const deltaX = mouseX - mouseStartX;
+
+        if (Math.abs(deltaX) > dragThreshold) {
+          isDragging = false;
+          sliderWrapper.css("cursor", "grab");
+
+          if (deltaX > 0) {
+            sliderWrapper
+              .stop()
+              .animate({ scrollLeft: `-=${scrollAmount}` }, 300);
+          } else {
+            sliderWrapper
+              .stop()
+              .animate({ scrollLeft: `+=${scrollAmount}` }, 300);
+          }
+        }
+      });
+
+      sliderWrapper.on("mouseup", () => {
+        if (!isDragging) return;
+        isDragging = false;
+        sliderWrapper.css("cursor", "grab");
+      });
+
+      sliderWrapper.on("mouseleave", () => {
+        if (isDragging) {
+          isDragging = false;
+          sliderWrapper.css("cursor", "grab");
         }
       });
     }
@@ -358,5 +402,11 @@
     });
   };
 
+  // İlk başlatma
   init();
+
+  // Ekran boyutu değiştiğinde slider'ı yeniden başlat
+  $(window).on("resize", () => {
+    addSliderFunctionality();
+  });
 })();
