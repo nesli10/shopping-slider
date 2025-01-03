@@ -402,10 +402,8 @@
     });
   };
 
-  // İlk başlatma
   init();
 
-  // Ekran boyutu değiştiğinde slider'ı yeniden başlat
   $(window).on("resize", () => {
     addSliderFunctionality();
   });
