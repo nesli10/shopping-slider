@@ -134,11 +134,11 @@
         gap: 16px;
         padding-left: 16px;
         scroll-behavior: smooth;
-        -ms-overflow-style: none;  
-        scrollbar-width: none;  
+        -ms-overflow-style: none;  /* IE ve Edge */
+        scrollbar-width: none;  /* Firefox */
       }
       .slider-wrapper::-webkit-scrollbar {
-        display: none; 
+        display: none; /* Chrome, Safari, Opera */
       }
       .product-card {
         flex: 0 0 calc((100% / 6.5) - (16px * 7.5 / 6.5));
@@ -300,7 +300,6 @@
       sliderWrapper.stop().animate({ scrollLeft: `+=${scrollAmount}` }, 300);
     });
 
-    // Mobil ve tablet cihazlar için touch olayları
     if (window.innerWidth <= 1023) {
       let touchStartX = 0;
       let isScrolling = false;
