@@ -198,7 +198,7 @@
     }
     .slider-button {
       position: absolute;
-      top: 50%; 
+      top: 55%; 
       transform: translateY(-50%);
       background: none;
       color: #2F4F4F;
@@ -224,15 +224,7 @@
         flex: 0 0 calc(50% - 8px); 
       }
       .slider-button {
-        width: 50px;
-        height: 50px;
-        font-size: 28px;
-      }
-      .slider-button.left {
-        left: -20px;
-      }
-      .slider-button.right {
-        right: -20px;
+        display: none; 
       }
     }
 
@@ -240,6 +232,9 @@
     @media (min-width: 768px) and (max-width: 1023px) {
       .product-card {
         flex: 0 0 calc(33.33% - 10.66px); 
+      }
+        .slider-button {
+        display: none; 
       }
     }
   `;
