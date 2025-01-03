@@ -23,7 +23,7 @@
         addSliderFunctionality();
         checkLikedProducts(data);
       })
-      .catch((err) => console.error("Fetch error:", err));
+      .catch((err) => console.error("Fetch hatası:", err));
   };
 
   const saveProductsToLocalStorage = (products) => {
@@ -39,18 +39,18 @@
     // Slider container
     const sliderContainer = $("<div>").addClass("slider-container");
 
-    // Title
+    // Başlık
     const title = $("<h2>").text("Benzer Ürünler");
     sliderContainer.append(title);
 
     // Slider wrapper
     const sliderWrapper = $("<div>").addClass("slider-wrapper");
 
-    // Product items
+    // Ürün kartları
     products.forEach((product) => {
       const productCard = $("<div>").addClass("product-card");
 
-      // Like button
+      // Beğen butonu
       const likeButton = $("<div>")
         .addClass("like-button")
         .html(
@@ -84,7 +84,7 @@
 
     sliderContainer.append(sliderWrapper);
 
-    // Left and right buttons
+    // Sol ve sağ düğmeler
     const leftButton = $("<button>")
       .addClass("slider-button left")
       .html(
@@ -99,145 +99,185 @@
 
     sliderContainer.append(leftButton, rightButton);
 
-    // Append to .product-detail element
+    // .product-detail elementine ekle
     const productDetail = $(".product-detail");
     if (productDetail.length) {
       productDetail.append(sliderContainer);
     } else {
-      console.error(".product-detail element not found");
+      console.error(".product-detail elementi bulunamadı");
     }
   };
 
   const buildCSS = () => {
     const css = `
-    .slider-container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      position: relative;
-      padding: 16px;
-      overflow: visible; 
-    }
-    .slider-container h2 {
-      font-size: 32px;
-      line-height: 43px;
-      margin-bottom: 16px;
-      text-align: left;
-      font-family: 'Open Sans', sans-serif;
-      color: #29323b;
-      font-weight: lighter;
-      padding-left: 30px;
-    }
-    .slider-wrapper {
-      display: flex;
-      overflow: hidden;
-      gap: 16px;
-      padding-left: 16px;
-    }
-    .product-card {
-      flex: 0 0 calc((100% / 6.5) - (16px * 7.5 / 6.5)); 
-      text-align: center;
-      padding: 16px;
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      position: relative; 
-    }
-     .like-button {
-      position: absolute;
-      top: 20px; 
-      right: 20px; 
-      font-size: 28px;
-      cursor: pointer;
-      color: #2F4F4F; 
-      z-index: 2; 
-      background-color: rgba(255, 255, 255, 0.8); 
-      border-radius: 6px; 
-      width: 32px; 
-      height: 32px; 
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    .like-button svg {
-      width: 20px; 
-      height: 20px; 
-      stroke: #2F4F4F; 
-      fill: none; 
-    }
-    .like-button.liked svg {
-      fill: #193db0; 
-      stroke: #2F4F4F; 
-    }
-    .product-card img {
-      width: 100%;
-      height: auto;
-    }
-    .product-card .name {
-      margin: 8px 0 4px 0; 
-      font-size: 14px;
-      cursor: pointer; 
-      color: #29323b !important;
-      font-family: 'Open Sans', sans-serif !important;
-      text-align: left; 
-      width: 100%; 
-    }
-    .product-card .price {
-      color: #193db0;
-      font-size: 15px; 
-      display: inline-block;
-      line-height: 22px; 
-      font-weight: bold; 
-      margin: 0px ; 
-      font-family: 'Open Sans', sans-serif !important;
-      text-align: left; 
-      width: 100%; 
-    }
-    .slider-button {
-      position: absolute;
-      top: 55%; 
-      transform: translateY(-50%);
-      background: none;
-      color: #2F4F4F;
-      border: none;
-      padding: 8px 16px;
-      font-size: 35px; 
-      cursor: pointer;
-      border-radius: 70%; 
-      width: 70px; 
-      height: 50px; 
-      z-index: 1; 
-    }
-    .slider-button.left {
-      left: -40px; 
-    }
-    .slider-button.right {
-      right: -40px; 
-    }
-
-    /* Mobil  (max-width: 767px) */
-    @media (max-width: 767px) {
+      .slider-container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        padding: 16px;
+        overflow: visible;
+      }
+      .slider-container h2 {
+        font-size: 32px;
+        line-height: 43px;
+        margin-bottom: 16px;
+        text-align: left;
+        font-family: 'Open Sans', sans-serif;
+        color: #29323b;
+        font-weight: lighter;
+        padding-left: 30px;
+      }
+      .slider-wrapper {
+        display: flex;
+        overflow-x: auto;
+        gap: 16px;
+        padding-left: 16px;
+        scroll-behavior: smooth;
+        -ms-overflow-style: none;  
+        scrollbar-width: none;  
+      }
+      .slider-wrapper::-webkit-scrollbar {
+        display: none; 
+      }
       .product-card {
-        flex: 0 0 calc(50% - 8px); 
+        flex: 0 0 calc((100% / 6.5) - (16px * 7.5 / 6.5));
+        text-align: center;
+        padding: 16px;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+      }
+      .like-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 28px;
+        cursor: pointer;
+        color: #2F4F4F;
+        z-index: 2;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 6px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .like-button svg {
+        width: 20px;
+        height: 20px;
+        stroke: #2F4F4F;
+        fill: none;
+      }
+      .like-button.liked svg {
+        fill: #193db0;
+        stroke: #2F4F4F;
+      }
+      .product-card img {
+        width: 100%;
+        height: auto;
+      }
+      .product-card .name {
+        margin: 8px 0 4px 0;
+        font-size: 14px;
+        cursor: pointer;
+        color: #29323b !important;
+        font-family: 'Open Sans', sans-serif !important;
+        text-align: left;
+        width: 100%;
+      }
+      .product-card .price {
+        color: #193db0;
+        font-size: 15px;
+        display: inline-block;
+        line-height: 22px;
+        font-weight: bold;
+        margin: 0px;
+        font-family: 'Open Sans', sans-serif !important;
+        text-align: left;
+        width: 100%;
       }
       .slider-button {
-        display: none; 
+        position: absolute;
+        top: 55%;
+        transform: translateY(-50%);
+        background: none;
+        color: #2F4F4F;
+        border: none;
+        padding: 8px 16px;
+        font-size: 35px;
+        cursor: pointer;
+        border-radius: 70%;
+        width: 70px;
+        height: 50px;
+        z-index: 1;
       }
-    }
+      .slider-button.left {
+        left: -40px;
+      }
+      .slider-button.right {
+        right: -40px;
+      }
 
-    /* Tablet (768px - 1023px) */
-    @media (min-width: 768px) and (max-width: 1023px) {
-      .product-card {
-        flex: 0 0 calc(33.33% - 10.66px); 
-      }
+      /* Mobil (max-width: 767px) */
+      @media (max-width: 767px) {
+        .slider-wrapper {
+          scroll-snap-type: x mandatory;
+        }
+        .product-card {
+          flex: 0 0 calc(100% - 16px);
+          scroll-snap-align: start;
+        }
         .slider-button {
-        display: none; 
+          display: none;
+        }
       }
-    }
-  `;
+
+      /* Tablet (768px - 1023px) */
+      @media (min-width: 768px) and (max-width: 1023px) {
+        .slider-wrapper {
+          scroll-snap-type: x mandatory;
+        }
+        .product-card {
+          flex: 0 0 calc(50% - 16px);
+          scroll-snap-align: start;
+        }
+        .slider-button {
+          display: none;
+        }
+      }
+
+      /* Laptop (1024px - 1365px) */
+      @media (min-width: 1024px) and (max-width: 1365px) {
+        .product-card {
+          flex: 0 0 calc((100% / 4) - (16px * 5 / 4));
+        }
+        .slider-button.left {
+          left: -20px;
+        }
+        .slider-button.right {
+          right: -20px;
+        }
+      }
+
+      /* Desktop (1366px ve üzeri) */
+      @media (min-width: 1366px) {
+        .product-card {
+          flex: 0 0 calc((100% / 6.5) - (16px * 7.5 / 6.5));
+        }
+        .slider-button.left {
+          left: -40px;
+        }
+        .slider-button.right {
+          right: -40px;
+        }
+      }
+    `;
 
     $("<style>").addClass("carousel-style").html(css).appendTo("head");
   };
@@ -260,26 +300,42 @@
       sliderWrapper.stop().animate({ scrollLeft: `+=${scrollAmount}` }, 300);
     });
 
-    // Touch events
-    let touchStartX = 0;
-    let touchEndX = 0;
+    // Mobil ve tablet cihazlar için touch olayları
+    if (window.innerWidth <= 1023) {
+      let touchStartX = 0;
+      let isScrolling = false;
 
-    sliderWrapper.on("touchstart", (e) => {
-      touchStartX = e.originalEvent.touches[0].clientX;
-    });
+      sliderWrapper.on("touchstart", (e) => {
+        touchStartX = e.originalEvent.touches[0].clientX;
+        isScrolling = true;
+      });
 
-    sliderWrapper.on("touchmove", (e) => {
-      touchEndX = e.originalEvent.touches[0].clientX;
-    });
+      sliderWrapper.on("touchmove", (e) => {
+        if (!isScrolling) return;
+        e.preventDefault();
+        const touchX = e.originalEvent.touches[0].clientX;
+        const deltaX = touchX - touchStartX;
+        sliderWrapper[0].scrollLeft -= deltaX;
+        touchStartX = touchX;
+      });
 
-    sliderWrapper.on("touchend", () => {
-      const swipeDistance = touchEndX - touchStartX;
-      if (swipeDistance > 50) {
-        sliderWrapper.stop().animate({ scrollLeft: `-=${scrollAmount}` }, 300);
-      } else if (swipeDistance < -50) {
-        sliderWrapper.stop().animate({ scrollLeft: `+=${scrollAmount}` }, 300);
-      }
-    });
+      sliderWrapper.on("touchend", () => {
+        if (!isScrolling) return;
+        isScrolling = false;
+
+        const scrollLeft = sliderWrapper[0].scrollLeft;
+        const nearestIndex = Math.round(scrollLeft / scrollAmount);
+        sliderWrapper
+          .stop()
+          .animate({ scrollLeft: nearestIndex * scrollAmount }, 300);
+      });
+
+      sliderWrapper.on("touchmove", (e) => {
+        if (isScrolling) {
+          e.preventDefault();
+        }
+      });
+    }
   };
 
   const saveLikedProduct = (productId, isLiked) => {
