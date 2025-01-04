@@ -84,7 +84,7 @@
 
     sliderContainer.append(sliderWrapper);
 
-    // Sol ve sağ düğmeler
+    // Sol ve sağ butonlar
     const leftButton = $("<button>")
       .addClass("slider-button left")
       .html(
@@ -134,11 +134,11 @@
         gap: 16px;
         padding-left: 16px;
         scroll-behavior: smooth;
-        -ms-overflow-style: none;  /* IE ve Edge */
-        scrollbar-width: none;  /* Firefox */
+        -ms-overflow-style: none;  
+        scrollbar-width: none;
       }
       .slider-wrapper::-webkit-scrollbar {
-        display: none; /* Chrome, Safari, Opera */
+        display: none; 
       }
       .product-card {
         flex: 0 0 calc((100% / 6.5) - (16px * 7.5 / 6.5));
