@@ -277,6 +277,53 @@
           right: -40px;
         }
       }
+        /* Desktop (1700 ve üzeri) */
+            @media (min-width: 1700px) {
+            .slider-container {
+            max-width: 1600px !important;
+            }
+            .product-card {
+            flex: 0 0 calc((100% / 6.5) - (16px * 7.5 / 6.5));
+            }
+            .slider-button.left {
+            left: -40px;
+            }
+            .slider-button.right {
+            right: -40px;
+            }
+           }
+
+           /* Desktop (2088-2559 arası) */
+            @media (min-width: 2088px) and (max-width: 2559px) {
+            .slider-container {
+            max-width: 2000px !important;
+            }
+            .product-card {
+            flex: 0 0 calc((100% / 6.5) - (16px * 7.5 / 6.5));
+            }
+            .slider-button.left {
+            left: -40px;
+            }
+            .slider-button.right {
+            right: -40px;
+            }
+           }
+
+          /* Desktop (2560px ve üzeri) */
+         @media (min-width: 2560px) {
+         .slider-container {
+         max-width: 2100px !important;
+        }
+          .product-card {
+            flex: 0 0 calc((100% / 6.5) - (16px * 7.5 / 6.5));
+          }
+          .slider-button.left {
+            left: -40px;
+          }
+          .slider-button.right {
+            right: -40px;
+          }
+        }
     `;
 
     $("<style>").addClass("carousel-style").html(css).appendTo("head");
