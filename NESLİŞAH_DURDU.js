@@ -366,14 +366,13 @@
         e.preventDefault();
         const touchX = e.originalEvent.touches[0].clientX;
         const deltaX = touchX - touchStartX;
-        sliderWrapper[0].scrollLeft -= deltaX;
+        sliderWrapper[0].scrollLeft -= deltaX * 2;
         touchStartX = touchX;
       });
 
       sliderWrapper.on("touchend", () => {
         if (!isScrolling) return;
         isScrolling = false;
-
         const scrollLeft = sliderWrapper[0].scrollLeft;
         const nearestIndex = Math.round(scrollLeft / scrollAmount);
         sliderWrapper
@@ -383,7 +382,7 @@
 
       let mouseStartX = 0;
       let isDragging = false;
-      const dragThreshold = 50;
+      const dragThreshold = 10;
 
       sliderWrapper.on("mousedown", (e) => {
         isDragging = true;
