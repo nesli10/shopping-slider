@@ -1,1 +1,1 @@
-# insider-case
+# e commerce website product slider
